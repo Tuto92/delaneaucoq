@@ -1,0 +1,6 @@
+{
+  "name": "De l'Âne au Coq",
+  "description": "Site internet mobile-first pour le restaurant traditionnel français De l'Âne au Coq à Issy-les-Moulineaux.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
