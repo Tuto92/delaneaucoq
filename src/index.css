@@ -1,0 +1,256 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Playfair Display", "Cormorant Garamond", "Georgia", serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Custom palette matching "Artistic Flair" precisely */
+  --color-cream: #FDFCF8;
+  --color-olive: #545E46;
+  --color-olive-dark: #3F4735;
+  --color-olive-light: #738062;
+  --color-ink: #1C1C1C;
+  --color-clay: #A67C52;
+  --color-clay-dark: #8C643E;
+  --color-accent-gold: #D4AF37;
+
+  /* Make standard tailwind colors automatically match the theme colors */
+  --color-amber-50: #FDFBF7;
+  --color-amber-100: #F5EFEB;
+  --color-amber-500: #D4AF37; /* Accent gold */
+  --color-amber-600: #A67C52; /* Clay */
+  --color-amber-700: #8C643E; /* Clay dark */
+  --color-amber-800: #545E46; /* Olive */
+  --color-amber-900: #1C1C1C; /* Ink */
+
+  --color-stone-50: #FDFCF8; /* Cream background */
+  --color-stone-100: #F0F0EA; /* Soft grey-olive background */
+  --color-stone-200: #E6E5D8;
+  --color-stone-300: #D6D5C4;
+  --color-stone-400: #A8A793;
+  --color-stone-500: #787766;
+  --color-stone-600: #545E46; /* Olive */
+  --color-stone-700: #3F4735; /* Olive dark */
+  --color-stone-800: #292E22;
+  --color-stone-900: #1C1C1C; /* Ink */
+  --color-stone-950: #131510; /* Extra dark ink */
+
+  /* Customize radius and shadow to exactly fit the Artistic Flair style */
+  --radius-2xl: 32px; /* Large 32px radius for cards */
+  --shadow-sm: 0 2px 8px rgba(84, 94, 70, 0.03);
+  --shadow-md: 0 10px 30px rgba(84, 94, 70, 0.05);
+  --shadow-lg: 0 15px 40px rgba(84, 94, 70, 0.08);
+  --shadow-xl: 0 20px 50px rgba(84, 94, 70, 0.12);
+}
+
+:root {
+  --color-bg: #FDFCF8; /* Cream background */
+  --color-surface: #F0F0EA; /* Soft grey-olive */
+  --color-surface-card: #ffffff;
+  --color-text-primary: #1C1C1C; /* Ink */
+  --color-text-secondary: #545E46; /* Olive text */
+  --color-border: rgba(84, 94, 70, 0.15); /* Soft olive border */
+  --color-accent: #545E46; /* Olive */
+  --color-accent-hover: #3F4735; /* Dark olive */
+  --color-gold: #D4AF37; /* Accent gold */
+}
+
+/* Dark mode overrides */
+[data-theme="dark"] {
+  --color-bg: #131510; /* Very deep dark olive black */
+  --color-surface: #1E211A; /* Dark olive gray */
+  --color-surface-card: #171A14; /* Dark olive-ink card */
+  --color-text-primary: #FDFCF8; /* Cream */
+  --color-text-secondary: #BCBBAF; /* Soft olive beige */
+  --color-border: rgba(253, 252, 248, 0.12);
+  --color-accent: #D4AF37; /* Gold */
+  --color-accent-hover: #C5A059;
+  --color-gold: #D4AF37;
+}
+
+/* Universal transition for seamless theme toggling */
+*, *::before, *::after {
+  transition: background-color 0.3s ease, color 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+/* Prevent transitions from messing up layout animations and spinners */
+.no-transition, .no-transition *, .animate-spin {
+  transition: none !important;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Image adjustments in dark mode to prevent retina glare (Playbook section 5) */
+[data-theme="dark"] img:not([src*=".svg"]) {
+  filter: brightness(0.85) saturate(0.9);
+}
+
+/* PLAYBOOK CUSTOM ANIMATIONS (Slide 77-80) */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(60px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-60px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInUp {
+  from { transform: translateY(60px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideInDown {
+  from { transform: translateY(-60px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideInPerspective {
+  from {
+    transform: perspective(1000px) translateZ(-100px) translateX(50px);
+    opacity: 0;
+  }
+  to {
+    transform: perspective(1000px) translateZ(0) translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes expandVertical {
+  from {
+    clip-path: inset(0 0 100% 0);
+    opacity: 0;
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}
+
+@keyframes blurIn {
+  from {
+    filter: blur(10px);
+    opacity: 0;
+  }
+  to {
+    filter: blur(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes glowIn {
+  from {
+    filter: brightness(0.5) drop-shadow(0 0 0px rgba(255,255,255,0));
+    opacity: 0;
+  }
+  to {
+    filter: brightness(1) drop-shadow(0 0 15px rgba(197, 160, 89, 0.4));
+    opacity: 1;
+  }
+}
+
+@keyframes letterSpacing {
+  from {
+    letter-spacing: -0.2em;
+    opacity: 0;
+  }
+  to {
+    letter-spacing: 0;
+    opacity: 1;
+  }
+}
+
+/* Helper utility animation classes */
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-in forwards;
+}
+
+.animate-slide-right {
+  animation: slideInRight 0.7s ease-out forwards;
+}
+
+.animate-slide-left {
+  animation: slideInLeft 0.7s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slideInUp 0.7s ease-out forwards;
+}
+
+.animate-slide-down {
+  animation: slideInDown 0.7s ease-out forwards;
+}
+
+.animate-perspective {
+  animation: slideInPerspective 0.8s ease-out forwards;
+}
+
+.animate-expand-vertical {
+  animation: expandVertical 0.8s ease-out forwards;
+}
+
+.animate-blur-in {
+  animation: blurIn 0.8s ease-in forwards;
+}
+
+.animate-glow-in {
+  animation: glowIn 0.8s ease-out forwards;
+}
+
+.animate-letter-spacing {
+  animation: letterSpacing 0.8s ease-out forwards;
+}
+
+/* Micro-interaction: custom ripple classes */
+.ripple-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(0);
+  animation: rippleAnimation 0.6s linear;
+  pointer-events: none;
+}
+
+@keyframes rippleAnimation {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
+
